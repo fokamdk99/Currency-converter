@@ -29,6 +29,7 @@ def index(request):
 def output(request):
     first = request.POST["first"]
     second = request.POST["second"]
+    money = request.POST["money"]
     print(f"first currency: {first}, second currency: {second}")
     value1 = data[first]
     value2 = data[second]
@@ -36,12 +37,14 @@ def output(request):
         content = {
             "first": first,
             "second": second,
-            "rate": value2
+            "rate": float(money) * value2,
+            "money": money
         }
     else:
         content = {
             "first": first,
             "second": second,
-            "rate": value2/value1
+            "rate": float(money) * value2 / value1,
+            "money": money
         }
     return render(request, "pwinside/response.html", content)
